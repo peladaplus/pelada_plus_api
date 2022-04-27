@@ -1,0 +1,13 @@
+package com.athenas.pelada_plus_api;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class PeladaPlusApiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PeladaPlusApiApplication.class, args);
+	}
+
+}
