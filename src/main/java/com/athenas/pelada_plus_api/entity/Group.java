@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
+
 @Table(name = "pld_group")
 public class Group implements Serializable {
 
@@ -20,19 +21,12 @@ public class Group implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "image")
     private String image;
-
-    @Column(name = "frequency")
     private String frequency;
-
-    @Column(name = "selfEvalution")
     private boolean selfEvaluation;
-
-    @Column(name = "gameType")
     private GameType gameType;
 }
 
