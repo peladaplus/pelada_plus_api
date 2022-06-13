@@ -9,7 +9,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class GroupExcepionHandler extends ResponseEntityExceptionHandler {
+public class GroupExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value= {Exception.class})
     public ResponseEntity<Object> handleAnyException(Exception e, WebRequest request){
