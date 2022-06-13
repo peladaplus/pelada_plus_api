@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/group")
@@ -35,9 +36,8 @@ public class GroupController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Group searchIdGroup(@PathVariable("id") Long id) {
-        return groupService.toSearchId(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found!"));
+    public Optional<Group> searchIdGroup(@PathVariable("id") Long id) {
+        return groupService.toSearchId(id);
     }
 
     @DeleteMapping("/{id}")
@@ -46,8 +46,8 @@ public class GroupController {
         groupService.toSearchId(id)
                 .map(group -> {
                     groupService.toRemove(group.getId());
-                    return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found!"));
+                    return null;
+                });
     }
 
     @PutMapping("/{id}")
@@ -57,7 +57,7 @@ public class GroupController {
                 .map(groupBase -> {
                     modelMapper.map(group, groupBase);
                     groupService.toSave(groupBase);
-                    return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found!"));
+                    return null;
+                });
     }
 }
