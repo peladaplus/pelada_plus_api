@@ -25,13 +25,35 @@ public class Group implements Serializable {
     private String name;
 
     private String image;
-    private String frequency;
-    private boolean selfEvaluation;
-    private GameType gameType;
+    private Frequency frequency;
+    private Days days;
+    private Modality modality;
+    private Assessment assessment;
 }
 
-enum GameType {
+enum Frequency {
+    monthly,
+    biweekly,
+    weekly,
+}
+
+enum Days {
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday
+}
+
+enum Modality {
     soccer,
     indoorSoccer,
-    society,
+    society
+}
+
+enum Assessment {
+    selfEvaluation,
+    moderator
 }
