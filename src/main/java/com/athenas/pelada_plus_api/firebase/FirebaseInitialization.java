@@ -12,7 +12,7 @@ import java.io.FileInputStream;
 public class FirebaseInitialization {
 
     @PostConstruct
-    public void initialization() {
+    public FirebaseInitialization initialization() {
 
         FileInputStream serviceAccount =
                 null;
@@ -27,5 +27,6 @@ public class FirebaseInitialization {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
