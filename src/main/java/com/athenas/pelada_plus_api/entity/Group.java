@@ -18,6 +18,7 @@ import java.io.Serializable;
 public class Group implements Serializable {
 
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
