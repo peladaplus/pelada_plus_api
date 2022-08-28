@@ -9,6 +9,7 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -22,19 +23,19 @@ public class GroupService {
     public String toSave(Group group) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(COLLECTION_NAME)
-                .document().set(group);
+                .document(group.getName()).set(group);
         return collectionApiFuture.get().getUpdateTime().toString();
     }
 
-    public Group toSearchId(String id) throws ExecutionException, InterruptedException {
+    public Group toSearchId(String name) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        DocumentReference documentReference = dbFirestore.collection(COLLECTION_NAME).document(id);
+        DocumentReference documentReference = dbFirestore.collection(COLLECTION_NAME).document(name);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
         DocumentSnapshot document = future.get();
 
         Group group = null;
         if (document.exists()) {
-            group = document.toObject(group.getClass());
+            group = document.toObject(Group.class);
             return group;
         } else {
             return null;
@@ -46,7 +47,7 @@ public class GroupService {
         Iterable<DocumentReference> documentReference = dbFirestore.collection(COLLECTION_NAME).listDocuments();
         Iterator<DocumentReference> iterator = documentReference.iterator();
 
-        List<Group> groupList = null;
+        List<Group> groupList = new ArrayList<>();
         Group group = null;
 
         while (iterator.hasNext()) {
@@ -60,17 +61,17 @@ public class GroupService {
         return groupList;
     }
 
-    public String toUpdate(String id) throws ExecutionException, InterruptedException {
+    public String toUpdate(Group group) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(COLLECTION_NAME)
-                .document().set(id);
+                .document(group.getName()).set(group);
         return collectionApiFuture.get().getUpdateTime().toString();
     }
 
-    public String toRemove(String id) throws ExecutionException, InterruptedException {
+    public String toRemove(String name) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(COLLECTION_NAME)
-                .document().delete();
-        return "Document with ID " + id + " has been deleted successfully";
+                .document(name).delete();
+        return "Document with ID " + name + " has been deleted successfully";
     }
 }

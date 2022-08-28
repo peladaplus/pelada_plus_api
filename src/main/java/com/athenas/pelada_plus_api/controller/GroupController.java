@@ -3,7 +3,6 @@ package com.athenas.pelada_plus_api.controller;
 
 import com.athenas.pelada_plus_api.entity.Group;
 import com.athenas.pelada_plus_api.service.GroupService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,22 +29,24 @@ public class GroupController {
         return groupService.toList();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public Group searchIdGroup(@PathVariable String id) throws ExecutionException, InterruptedException {
-        return groupService.toSearchId(id);
+    public Group searchIdGroup(@PathVariable String name) throws ExecutionException, InterruptedException {
+        return groupService.toSearchId(name);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{name}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String removeGroup(@PathVariable String id) throws ExecutionException, InterruptedException {
-        return groupService.toRemove(id);
-    };
+    public String removeGroup(@PathVariable String name) throws ExecutionException, InterruptedException {
+        return groupService.toRemove(name);
+    }
+
+    ;
 
 
-    @PutMapping
+    @PutMapping("/{name}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String updateGroup(@RequestBody String id) throws ExecutionException, InterruptedException {
-        return groupService.toUpdate(id);
+    public String updateGroup(@PathVariable String name, @RequestBody Group group) throws ExecutionException, InterruptedException {
+        return groupService.toUpdate(group);
     }
 }
