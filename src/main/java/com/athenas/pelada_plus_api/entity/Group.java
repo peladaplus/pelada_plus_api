@@ -5,21 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
 
-@Table(name = "pld_group")
-public class Group implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Group {
 
     @Column(nullable = false)
     private String name;
